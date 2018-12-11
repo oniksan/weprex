@@ -882,6 +882,24 @@ Page {
 								return qsTr("Trace parameter in table.")
 							} else if (key === "poll") {
 								return qsTr("Enable/disable parameter polling.")
+							} else if (key === "devadr") {
+								return qsTr("Device address.")
+							} else if (key === "fcode") {
+								return qsTr("Modbus function code.")
+							} else if (key === "adr") {
+								return qsTr("Modbus register address.")
+							} else if (key === "count") {
+								return qsTr("Number of registers or coils.")
+							} else if (key === "view") {
+								return qsTr("Visualized type and byte order.")
+							} else if (key === "request") {
+								return qsTr("Number of requests executed.")
+							} else if (key === "response") {
+								return qsTr("Number of success responses received.")
+							} else if (key === "error") {
+								return qsTr("Number of responses with errors.")
+							} else if (key === "timeout") {
+								return qsTr("Number of responses timeouts.")
 							}
 							return qsTr("Double-click the column header to change the width of the column according to the size of the content.")
 						}

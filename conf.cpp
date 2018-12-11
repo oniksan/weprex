@@ -30,7 +30,7 @@ const quint32 Conf::DEVICE_DISCONNECTION_WAIT_TIME = 20000;
 const bool Conf::DEVICE_TCP_AUTO_RECONNECT = true;
 const quint32 Conf::DEVICE_THREAD_SLEEP_PAUSE = 1;
 const QString Conf::DEFAULT_STORE_SETTINGS_FILE = "appset.ini";
-const QString Conf::MANUAL_FILE_PATH = "weprex_0.1beta_manual.pdf";
+const QString Conf::MANUAL_FILE_PATH = "weprex_0.1.1_manual.pdf";
 
 const QString Conf::storeSettingsPath() {
 	return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/" + DEFAULT_STORE_SETTINGS_FILE;
