@@ -22,6 +22,15 @@ The software provides data polling in real time
 (relative to predetermined intervals and hardware support capabilities)
 and their presentation in graphical and tabular form.
 
+## Screenshots
+![Main screen](/screenshots/main.png)<br/>
+![Chart](/screenshots/chart.png)<br/>
+![Table](/screenshots/table.png)<br/>
+![Log](/screenshots/log.png)<br/>
+![Modbus registers](/screenshots/regs.png)<br/>
+![Interface adding](/screenshots/iface.png)<br/>
+      
+
 ## Software assignment
 - Industrial automation
 - Building automation
