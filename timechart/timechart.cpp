@@ -34,17 +34,16 @@ TimeChart::TimeChart(QQuickItem *parent) :
 	m_leftMousePressed(false),
 	m_rightMousePressed(false),
 	m_middleMousePressed(false),
+	m_zoomLock(false),
 	m_mouseMoveEventDisable(false),
 	m_lastTrackingRegime(TrackingRegime::UNDEFINED)
 {
-	m_zoomTimer = new QTimer(this);
-	m_autoUpdateTimer = new QTimer(this);
 	m_render = new DefaultSeriesRenderer(&m_basicSeries, &m_extraSeries);
-	connect(m_zoomTimer, &QTimer::timeout, this, &TimeChart::zoomSlot);
-	m_zoomTimer->setInterval(50);
-	m_zoomTimer->setSingleShot(true);
-	connect(m_autoUpdateTimer, &QTimer::timeout, this, &TimeChart::autoUpdateSlot);
-	m_autoUpdateTimer->start(m_autoUpdateTime);
+	connect(&m_zoomTimer, &QTimer::timeout, this, &TimeChart::zoomSlot);
+	m_zoomTimer.setInterval(50);
+	m_zoomTimer.setSingleShot(true);
+	connect(&m_autoUpdateTimer, &QTimer::timeout, this, &TimeChart::autoUpdateSlot);
+	m_autoUpdateTimer.start(m_autoUpdateTime);
 	setAcceptedMouseButtons(Qt::AllButtons);
 	setAcceptHoverEvents(true);
 	connect(m_render, &SeriesRenderer::trackingChanged, this, [=]() {trackingRegimeMonitor();});
@@ -53,8 +52,6 @@ TimeChart::TimeChart(QQuickItem *parent) :
 }
 
 TimeChart::~TimeChart() {
-	delete m_autoUpdateTimer;
-	delete m_zoomTimer;
 	delete m_render;
 }
 
@@ -85,11 +82,11 @@ int TimeChart::autoUpdateTime() const {
 
 void TimeChart::setAutoUpdateTime(int value) {
 	if (value <= 0) {
-		m_autoUpdateTimer->stop();
+		m_autoUpdateTimer.stop();
 		m_autoUpdateTime = 0;
 	} else {
 		m_autoUpdateTime = value;
-		m_autoUpdateTimer->start(m_autoUpdateTime);
+		m_autoUpdateTimer.start(m_autoUpdateTime);
 	}
 	emit autoUpdateTimeChanged(value);
 }
@@ -281,7 +278,7 @@ void TimeChart::mouseReleaseEvent(QMouseEvent* me) {
 				m_savedSelection.setHeight(m_selection.height() * -1);
 			}
 			m_mouseMoveEventDisable = true;
-			m_zoomTimer->start();
+			m_zoomTimer.start();
 		}
 		m_selection.setRect(0, 0, 0, 0);
 		m_leftMousePressed = false;
@@ -365,7 +362,7 @@ void TimeChart::zoomSlot() {
 		m_savedSelection = newR;
 		m_zoomCounter--;
 		update();
-		m_zoomTimer->start();
+		m_zoomTimer.start();
 	} else {
 		m_zoomLock = false;
 	}

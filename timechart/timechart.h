@@ -117,10 +117,10 @@ namespace webstella {
 			quint64 m_rightTime;
 
 			// Таймер обновления значений
-			QTimer *m_autoUpdateTimer;
+			QTimer m_autoUpdateTimer;
 
 			// Таймер перерисовки зуммирования
-			QTimer *m_zoomTimer;
+			QTimer m_zoomTimer;
 			// Счетчик таймера зуммирования
 			qint32 m_zoomCounter;
 			// Количество визуализированных шагов зуммирования
