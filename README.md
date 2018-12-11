@@ -1,5 +1,20 @@
 # Weprex (Webstella protocols exchange)
 
+## Dowload binary distributive
+### Windows 7, 8, 10
+#### 32-bit installer:
+https://github.com/oniksan/weprex/releases/download/0.1.1/weprex-0.1.1-i686.32bit.-installer.exe
+#### 64-bit installer:
+https://github.com/oniksan/weprex/releases/download/0.1.1/weprex-0.1.1-x86-64-installer.exe
+### Other platforms
+#### Compile the executable file yourself:
+- Dowload Qt 5.11.2 or later
+- Dowload Qt Creator 4.7.1
+- Open Project "weprex.pro"
+- Compile (specialized third-party libraries are not required)
+- Put "weprex_V.X.X_manual.pdf" to working directory
+- Use it
+
 ## About
 Weprex is cross-platform GUI software allows polling devices (as "master")
 using various data transfer protocols by request-responce type.<br/>
@@ -33,7 +48,12 @@ and their presentation in graphical and tabular form.
 Support for new protocols and features will be introduced:
 - when used by the author for personal purposes
 - with sufficient demand for this software from users
-- upon request of users when providing the necessary documentation and/or devices.
+- upon request of users when providing the necessary documentation and/or devices
+
+## Contacts
+Any suggestions and requests:
+- Сreate pull requests
+- Or send an e-mail: weprexsoft@gmail.com
 
 ## Manual
 Will be presented in the near future.
