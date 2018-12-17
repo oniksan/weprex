@@ -90,14 +90,14 @@ public:
 
 	Q_INVOKABLE bool showManual();
 
-	Q_INVOKABLE QString name();
-	Q_INVOKABLE QString fullName();
-	Q_INVOKABLE QString version();
-	Q_INVOKABLE QString license();
-	Q_INVOKABLE QString build();
-	Q_INVOKABLE QString copyrights();
-	Q_INVOKABLE QString additionalInfo();
-	Q_INVOKABLE QString contacts();
+	Q_INVOKABLE static QString name();
+	Q_INVOKABLE static QString fullName();
+	Q_INVOKABLE static QString version();
+	Q_INVOKABLE static QString license();
+	Q_INVOKABLE static QString build();
+	Q_INVOKABLE static QString copyrights();
+	Q_INVOKABLE static QString additionalInfo();
+	Q_INVOKABLE static QString contacts();
 
 	static const QString whoIAm;
 

@@ -1,5 +1,5 @@
-QT += core network quick quickcontrols2 serialport
-CONFIG += c++11
+QT += core network quick quickcontrols2 serialport gui widgets
+CONFIG += c++11 qtquickcompiler 
 
 RC_FILE = weprex.rc
 

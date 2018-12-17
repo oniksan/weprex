@@ -27,7 +27,8 @@ import QtQuick.Layouts 1.3
 import ru.webstella.weprex 1.0
 
 ApplicationWindow {
-	id: splash
+	id: about
+	visible: false
 	color: "transparent"
 	title: "About"
 	modality: Qt.ApplicationModal
@@ -37,9 +38,7 @@ ApplicationWindow {
 	width: splashImage.width
 	height: splashImage.height
 
-	property int timeoutInterval: 2000
 	property App mainApp
-	signal timeout
 
 	background: Image {
 		id: splashImage
@@ -47,41 +46,10 @@ ApplicationWindow {
 	}
 
 	function showAbout() {
-		info.visible = false
-		infoAbout.visible = true
-		splash.visible = true
+		about.visible = true
 	}
 
 	Item {
-		id: info
-		anchors.fill: parent
-		ColumnLayout {
-			anchors.left: parent.left
-			anchors.right: parent.right
-			anchors.bottom: parent.bottom
-			Label {
-				Layout.fillWidth: true
-				horizontalAlignment: Text.AlignHCenter
-				font.pixelSize: 13
-				color: "white"
-				text: mainApp.name() + " " + mainApp.version() + "<br/>" +
-					  "Build " + mainApp.build() + "<br/>" +
-					  mainApp.license() + "<br/><br/>" +
-					  mainApp.copyrights()
-			}
-			Label {
-				Layout.fillWidth: true
-				horizontalAlignment: Text.AlignHCenter
-				font.pixelSize: 11
-				bottomPadding: 40
-				color: "white"
-				text: mainApp.additionalInfo()
-			}
-		}
-	}
-	Item {
-		id: infoAbout
-		visible: false
 		anchors.fill: parent
 		ColumnLayout {
 			anchors.left: parent.left
@@ -116,18 +84,7 @@ ApplicationWindow {
 	MouseArea {
 		anchors.fill: parent
 		onClicked: {
-			splash.visible = false
-			splashTimer.running = false
+			about.visible = false
 		}
 	}
-
-	Timer {
-		id: splashTimer
-		interval: timeoutInterval; running: true; repeat: false
-		onTriggered: {
-			visible = false
-			splash.timeout()
-		}
-	}
-	Component.onCompleted: visible = true
 }

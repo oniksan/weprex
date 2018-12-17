@@ -20,10 +20,11 @@
 
 ****************************************************************************/
 
-#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QtCore>
+#include <QApplication>
+#include <QSplashScreen>
 
 #include "wsqmlapplication.h"
 #include "interfaces/wssocketinterface.h"
@@ -36,17 +37,23 @@
 #include "conf.h"
 
 int main(int argc, char *argv[]) {
-	//QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
-	QGuiApplication app(argc, argv);
-
+	QApplication app(argc, argv);
+	QPixmap pixmap(":/icon/splash.jpg");
+	QSplashScreen splash(pixmap);
+	QString splashText = WSQMLApplication::name() + " " + WSQMLApplication::version() + "\n" +
+			"Build " + WSQMLApplication::build() + "\n" +
+			WSQMLApplication::license() + "\n\n" +
+			WSQMLApplication::copyrights() + "\n" +
+			WSQMLApplication::additionalInfo() + "\n\n\n";
+	splash.showMessage(splashText, Qt::AlignHCenter | Qt::AlignBottom, Qt::white);
+	splash.show();
+	app.processEvents();
 	qDebug() << Conf::storeSettingsPath();
 	
 	qmlRegisterType<WSQMLApplication>("ru.webstella.weprex", 1, 0, "App");
 	qmlRegisterType<webstella::gui::TimeChart>("ru.webstella.gui.chart", 1, 0, "TimeChart");
 	qmlRegisterType<webstella::gui::TimeSeries>("ru.webstella.gui.chart", 1, 0, "TimeSeries");
 
-	//qmlRegisterType<WSSettings>("ru.webstella.weprex", 1, 0, "StoreSettings");
 	qRegisterMetaType<WSSettings*>("StoreSettings*");
 	qRegisterMetaType<WSFile*>("File*");
 	qRegisterMetaType<webstella::gui::TimeSeries*>("TimeSeries*");
@@ -57,13 +64,11 @@ int main(int argc, char *argv[]) {
 	qRegisterMetaType<webstella::gui::InterpolateTimeValue>("InterpolateTimeValue");
 	qRegisterMetaType<webstella::gui::TimeBounds>("TimeBounds");
 
-	//qRegisterMetaType<webstella::gui::TimeSeries::Notation>("TSNotation");
-
 	QQuickStyle::setStyle("Material");
 	QQmlApplicationEngine engine;
 	engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 	if (engine.rootObjects().isEmpty())
 		return -1;
-
+	splash.close();
 	return app.exec();
 }

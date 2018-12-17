@@ -37,7 +37,7 @@
         <file>DialogExit.qml</file>
         <file>TableColorDelegate.qml</file>
         <file>DialogColor.qml</file>
-        <file>SplashWindow.qml</file>
+        <file>AboutWindow.qml</file>
         <file>icon/splash.jpg</file>
         <file>icon/parameter_delete_dis.png</file>
         <file>icon/parameter_add_dis.png</file>

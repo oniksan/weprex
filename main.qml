@@ -66,8 +66,8 @@ ApplicationWindow {
 		id: appSettings
 	}
 
-	SplashWindow {
-		id: splashWindow
+	AboutWindow {
+		id: aboutWindow
 		mainApp: app
 	}
 
@@ -722,7 +722,7 @@ ApplicationWindow {
 				topPadding: 10
 				bottomPadding: 10
 			}
-			MenuItem {text: qsTr("About..."); onTriggered: {splashWindow.showAbout()}}
+			MenuItem {text: qsTr("About..."); onTriggered: {aboutWindow.showAbout()}}
 		}
 	}
 
