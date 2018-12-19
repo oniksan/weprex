@@ -8,8 +8,8 @@ https://github.com/oniksan/weprex/releases/download/0.1.1/weprex-0.1.1-i686.32bi
 https://github.com/oniksan/weprex/releases/download/0.1.1/weprex-0.1.1-x86-64-installer.exe
 ### Other platforms
 #### Compile the executable file yourself:
-- Dowload Qt 5.11.2 or later
-- Dowload Qt Creator 4.7.1
+- Dowload Qt 5.12 or later
+- Dowload Qt Creator 4.8
 - Open Project "weprex.pro"
 - Compile (specialized third-party libraries are not required)
 - Put "weprex_V.X.X_manual.pdf" to working directory
