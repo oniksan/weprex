@@ -749,7 +749,7 @@ QString WSQMLApplication::fullName() {
 }
 
 QString WSQMLApplication::version() {
-	return "0.1.2";
+	return "0.2.0";
 }
 
 QString WSQMLApplication::license() {
