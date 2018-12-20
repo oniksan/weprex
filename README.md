@@ -3,14 +3,21 @@
 ## Dowload binary distributive
 ### Windows 7, 8, 10
 #### 32-bit installer:
-https://github.com/oniksan/weprex/releases/download/0.1.1/weprex-0.1.1-i686.32bit.-installer.exe
-#### 64-bit installer:
-https://github.com/oniksan/weprex/releases/download/0.1.1/weprex-0.1.1-x86-64-installer.exe
+`Required Microsoft Visual C++ Redistributable for Visual Studio 2017 (Included in installer package)`
+https://github.com/oniksan/weprex/releases/download/0.2.0/weprex-0.2.0-32bit_MSVC2017_installer.exe
+#### 64-bit installers:
+##### Compiled by MinGW 7.3
+https://github.com/oniksan/weprex/releases/download/0.2.0/weprex_0.2.0_64bit_MinGW7.3_installer.exe
+##### Compiled by MSVC 2017
+`Required Microsoft Visual C++ Redistributable for Visual Studio 2017 (Included in installer package)`
+https://github.com/oniksan/weprex/releases/download/0.2.0/weprex-0.2.0-64bit_MSVC2017_installer.exe
+#### 64-bit binary (zip archive)
+##### Compiled by MinGW 7.3
+https://github.com/oniksan/weprex/releases/download/0.2.0/weprex-MinGW_64bit.zip
 ### Other platforms
 #### Compile the executable file yourself:
 - Dowload Qt 5.12 or later
-- Dowload Qt Creator 4.8
-- Open Project "weprex.pro"
+- Dowload Qt Creator 4.8 and Open Project "weprex.pro" (optionaly)
 - Compile (specialized third-party libraries are not required)
 - Put "weprex_V.X.X_manual.pdf" to working directory
 - Use it
