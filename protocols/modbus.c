@@ -188,7 +188,7 @@ int8_t modbus_rtu_server(struct modbus_server_handler *serv, uint8_t *in_buf, ui
 	res = modbus_rtu_server_analyze(in_buf, in_buf_len);
 	if ((res > 0 && serv->device_adr == res) || res == 0) {
 		/* Package parse and processing */
-		len = modbus_abstract_server(serv, &in_buf[MB_SIZE_SERIAL_HEADER], in_buf_len - MB_SIZE_SERIAL_HEADER, &out_buf[MB_SIZE_SERIAL_HEADER]);
+		len = modbus_abstract_server(serv, &in_buf[MB_SIZE_SERIAL_HEADER], in_buf_len - MB_SIZE_SERIAL_HEADER - MB_SIZE_CRC, &out_buf[MB_SIZE_SERIAL_HEADER]);
 		/* Construct package */
 		if (res > 0) {
 			out_buf[MB_OFFSET_SERIAL_ADR] = (uint8_t) res;
@@ -790,4 +790,28 @@ int8_t modbus_client_tcp_response(struct modbus_tcp_client_handler *client, cons
 		client->counter++;
 	}
 	return res;
+}
+
+uint32_t modbus_client_rtu_param_add(struct modbus_rtu_client_handler *client, struct modbus_client_parameter *param) {
+	return utils_vect_append(client->params, param);
+}
+
+void modbus_client_rtu_param_del(struct modbus_rtu_client_handler *client, uint32_t index) {
+	utils_vect_remove(client->params, index);
+}
+
+struct modbus_client_parameter* modbus_client_rtu_param_get(struct modbus_rtu_client_handler *client, uint32_t index) {
+	return utils_vect_get(client->params, index);
+}
+
+uint32_t modbus_client_tcp_param_add(struct modbus_tcp_client_handler *client, struct modbus_client_parameter *param) {
+	return utils_vect_append(client->params, param);
+}
+
+void modbus_client_tcp_param_del(struct modbus_tcp_client_handler *client, uint32_t index) {
+	utils_vect_remove(client->params, index);
+}
+
+struct modbus_client_parameter* modbus_client_tcp_param_get(struct modbus_tcp_client_handler *client, uint32_t index) {
+	return utils_vect_get(client->params, index);
 }

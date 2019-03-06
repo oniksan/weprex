@@ -275,6 +275,29 @@ void modbus_client_rtu_destroy(struct modbus_rtu_client_handler *client);
 void modbus_client_rtu_reset(struct modbus_rtu_client_handler *client);
 
 /**
+ * @brief Append parameter to client
+ * @param client Modbus RTU client handler
+ * @param param Modbus parameter
+ * @return Parameters (index + 1) or zero in case of error
+ */
+uint32_t modbus_client_rtu_param_add(struct modbus_rtu_client_handler *client, struct modbus_client_parameter *param);
+
+/**
+ * @brief Delete parameter from client
+ * @param client Modbus RTU client handler
+ * @param index Modbus parameters index
+ */
+void modbus_client_rtu_param_del(struct modbus_rtu_client_handler *client, uint32_t index);
+
+/**
+ * @brief Get parameter from client
+ * @param client Modbus RTU client handler
+ * @param index Modbus parameters index
+ * @return Modbus parameter
+ */
+struct modbus_client_parameter* modbus_client_rtu_param_get(struct modbus_rtu_client_handler *client, uint32_t index);
+
+/**
  * @brief Create Modbus TCP client instance
  * @return Modbus TCP client handler
  */
@@ -291,6 +314,29 @@ void modbus_client_tcp_destroy(struct modbus_tcp_client_handler *client);
  * @param client Modbus TCP client handler
  */
 void modbus_client_tcp_reset(struct modbus_tcp_client_handler *client);
+
+/**
+ * @brief Append parameter to client
+ * @param client Modbus TCP client handler
+ * @param param Modbus parameter
+ * @return Parameters (index + 1) or zero in case of error
+ */
+uint32_t modbus_client_tcp_param_add(struct modbus_tcp_client_handler *client, struct modbus_client_parameter *param);
+
+/**
+ * @brief Delete parameter from client
+ * @param client Modbus TCP client handler
+ * @param index Modbus parameters index
+ */
+void modbus_client_tcp_param_del(struct modbus_tcp_client_handler *client, uint32_t index);
+
+/**
+ * @brief Get parameter from client
+ * @param client Modbus TCP client handler
+ * @param index Modbus parameters index
+ * @return Modbus parameter
+ */
+struct modbus_client_parameter* modbus_client_tcp_param_get(struct modbus_tcp_client_handler *client, uint32_t index);
 
 /**
  * @brief Calculate Modbus checksum CRC16
