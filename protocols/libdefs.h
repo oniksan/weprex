@@ -54,22 +54,22 @@ typedef union {
 #define UTILS_VECT_INIT_SIZE 20
 #define UTILS_VECT_REALLOC_APPEND_SIZE 10
 
-struct utils_vect_handler {
+struct utils_vect_handle {
 	void **values;
 	uint32_t pointer;
 	uint32_t size;
 };
 
-struct utils_vect_handler* utils_vector_create();
-struct utils_vect_handler* utils_vector_create_sized(uint32_t init_size);
-void utils_vect_destroy(struct utils_vect_handler *vector);
-void utils_vect_destroy_all(struct utils_vect_handler *vector);
-uint32_t utils_vect_realloc(struct utils_vect_handler *vector, uint32_t size);
-uint32_t utils_vect_append(struct utils_vect_handler *vector, void *val);
-uint32_t utils_vect_size(struct utils_vect_handler *vector);
-void* utils_vect_get(struct utils_vect_handler *vector, uint32_t index);
-uint32_t utils_vect_remove(struct utils_vect_handler *vector, uint32_t index);
-void utils_vector_clear(struct utils_vect_handler *vector);
+struct utils_vect_handle* utils_vector_create();
+struct utils_vect_handle* utils_vector_create_sized(uint32_t init_size);
+void utils_vect_destroy(struct utils_vect_handle *vector);
+void utils_vect_destroy_all(struct utils_vect_handle *vector);
+uint32_t utils_vect_realloc(struct utils_vect_handle *vector, uint32_t size);
+uint32_t utils_vect_append(struct utils_vect_handle *vector, void *val);
+uint32_t utils_vect_size(struct utils_vect_handle *vector);
+void* utils_vect_get(struct utils_vect_handle *vector, uint32_t index);
+uint32_t utils_vect_remove(struct utils_vect_handle *vector, uint32_t index);
+void utils_vector_clear(struct utils_vect_handle *vector);
 
 #if defined (__cplusplus)
 }

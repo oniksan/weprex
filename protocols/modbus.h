@@ -138,9 +138,9 @@ struct modbus_client_parameter {
 };
 
 /**
- * @brief Modbus server handler
+ * @brief Modbus server handle
  */
-struct modbus_server_handler {
+struct modbus_server_handle {
 	uint8_t *registers;							/* Registers map */
 	uint8_t *access;							/* Access mask for registers map */
 	int32_t bytes_size;							/* Size of map in bytes */
@@ -149,19 +149,19 @@ struct modbus_server_handler {
 };
 
 /**
- * @brief Modbus RTU client handler
+ * @brief Modbus RTU client handle
  */
-struct modbus_rtu_client_handler {
-	struct utils_vect_handler* params;			/* Parameters vector */
+struct modbus_rtu_client_handle {
+	struct utils_vect_handle* params;			/* Parameters vector */
 	uint16_t param_counter;						/* Polling counter */
 	uint16_t counter;							/* Total counter */
 };
 
 /**
- * @brief Modbus TCP client handler
+ * @brief Modbus TCP client handle
  */
-struct modbus_tcp_client_handler {
-	struct utils_vect_handler* params;			/* Parameters vector */
+struct modbus_tcp_client_handle {
+	struct utils_vect_handle* params;			/* Parameters vector */
 	uint16_t transaction_id;					/* Transaction Identifier */
 	uint16_t param_counter;						/* Polling counter */
 	uint16_t counter;							/* Total counter */
@@ -174,37 +174,37 @@ struct modbus_tcp_client_handler {
  * @param bytes_size Size of map in bytes
  * @param max_regs_send Maximum number of registers/bits requested in one package
  * @param adr Master (server) address
- * @return Modbus server handler
+ * @return Modbus server handle
  */
-struct modbus_server_handler* modbus_server_create(void *regs, uint8_t *access, int32_t bytes_size, uint16_t max_regs_send, uint16_t adr);
+struct modbus_server_handle* modbus_server_create(void *regs, uint8_t *access, int32_t bytes_size, uint16_t max_regs_send, uint16_t adr);
 
 /**
  * @brief modbus_server_destroy Destroy Modbus servers instance
- * @param serv Modbus server handler
+ * @param serv Modbus server handle
  */
-void modbus_server_destroy(struct modbus_server_handler* serv);
+void modbus_server_destroy(struct modbus_server_handle* serv);
 
 /**
  * @brief modbus_tcp_server Processing Modbus TCP package and generates responce package
- * @param serv Modbus server handler
+ * @param serv Modbus server handle
  * @param in_buf Request package
  * @param in_buf_len Request package length
  * @param out_buf Response package buffer
  * @param out_buf_len Pointer to response package length
  * @return Package parse status
  */
-int8_t modbus_tcp_server(struct modbus_server_handler *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len);
+int8_t modbus_tcp_server(struct modbus_server_handle *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len);
 
 /**
  * @brief modbus_rtu_server Processing Modbus RTU package and generates responce package
- * @param serv Modbus server handler
+ * @param serv Modbus server handle
  * @param in_buf Request package
  * @param in_buf_len Request package length
  * @param out_buf Response package buffer
  * @param out_buf_len Pointer to response package length
  * @return Package parse status
  */
-int8_t modbus_rtu_server(struct modbus_server_handler *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len);
+int8_t modbus_rtu_server(struct modbus_server_handle *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len);
 
 /**
  * @brief Verification MPAB header of Modbus TCP package
@@ -258,85 +258,85 @@ void modbus_client_param_destroy(struct modbus_client_parameter* param);
 
 /**
  * @brief Create Modbus RTU client instance
- * @return Modbus RTU client handler
+ * @return Modbus RTU client handle
  */
-struct modbus_rtu_client_handler* modbus_client_rtu_create();
+struct modbus_rtu_client_handle* modbus_client_rtu_create();
 
 /**
  * @brief Destroy Modbus RTU client instance
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  */
-void modbus_client_rtu_destroy(struct modbus_rtu_client_handler *client);
+void modbus_client_rtu_destroy(struct modbus_rtu_client_handle *client);
 
 /**
  * @brief Reset polling counters, errors and parameters values to default
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  */
-void modbus_client_rtu_reset(struct modbus_rtu_client_handler *client);
+void modbus_client_rtu_reset(struct modbus_rtu_client_handle *client);
 
 /**
  * @brief Append parameter to client
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  * @param param Modbus parameter
  * @return Parameters (index + 1) or zero in case of error
  */
-uint32_t modbus_client_rtu_param_add(struct modbus_rtu_client_handler *client, struct modbus_client_parameter *param);
+uint32_t modbus_client_rtu_param_add(struct modbus_rtu_client_handle *client, struct modbus_client_parameter *param);
 
 /**
  * @brief Delete parameter from client
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  * @param index Modbus parameters index
  */
-void modbus_client_rtu_param_del(struct modbus_rtu_client_handler *client, uint32_t index);
+void modbus_client_rtu_param_del(struct modbus_rtu_client_handle *client, uint32_t index);
 
 /**
  * @brief Get parameter from client
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  * @param index Modbus parameters index
  * @return Modbus parameter
  */
-struct modbus_client_parameter* modbus_client_rtu_param_get(struct modbus_rtu_client_handler *client, uint32_t index);
+struct modbus_client_parameter* modbus_client_rtu_param_get(struct modbus_rtu_client_handle *client, uint32_t index);
 
 /**
  * @brief Create Modbus TCP client instance
- * @return Modbus TCP client handler
+ * @return Modbus TCP client handle
  */
-struct modbus_tcp_client_handler* modbus_client_tcp_create();
+struct modbus_tcp_client_handle* modbus_client_tcp_create();
 
 /**
  * @brief Destroy Modbus TCP client instance
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  */
-void modbus_client_tcp_destroy(struct modbus_tcp_client_handler *client);
+void modbus_client_tcp_destroy(struct modbus_tcp_client_handle *client);
 
 /**
  * @brief Reset polling counters, errors and parameters values to default
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  */
-void modbus_client_tcp_reset(struct modbus_tcp_client_handler *client);
+void modbus_client_tcp_reset(struct modbus_tcp_client_handle *client);
 
 /**
  * @brief Append parameter to client
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  * @param param Modbus parameter
  * @return Parameters (index + 1) or zero in case of error
  */
-uint32_t modbus_client_tcp_param_add(struct modbus_tcp_client_handler *client, struct modbus_client_parameter *param);
+uint32_t modbus_client_tcp_param_add(struct modbus_tcp_client_handle *client, struct modbus_client_parameter *param);
 
 /**
  * @brief Delete parameter from client
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  * @param index Modbus parameters index
  */
-void modbus_client_tcp_param_del(struct modbus_tcp_client_handler *client, uint32_t index);
+void modbus_client_tcp_param_del(struct modbus_tcp_client_handle *client, uint32_t index);
 
 /**
  * @brief Get parameter from client
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  * @param index Modbus parameters index
  * @return Modbus parameter
  */
-struct modbus_client_parameter* modbus_client_tcp_param_get(struct modbus_tcp_client_handler *client, uint32_t index);
+struct modbus_client_parameter* modbus_client_tcp_param_get(struct modbus_tcp_client_handle *client, uint32_t index);
 
 /**
  * @brief Calculate Modbus checksum CRC16
@@ -385,38 +385,38 @@ void modbus_client_tcp_mpab(uint16_t transaction_id, uint8_t *package, uint16_t 
 
 /**
  * @brief Modbus RTU slave (client) request function
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  * @param out_buf Buffer for created package
  * @param out_buf_len Pointer to package size
  */
-void modbus_client_rtu_request(struct modbus_rtu_client_handler *client, uint8_t *out_buf, uint16_t *out_buf_len);
+void modbus_client_rtu_request(struct modbus_rtu_client_handle *client, uint8_t *out_buf, uint16_t *out_buf_len);
 
 /**
  * @brief Modbus TCP slave (client) request function
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  * @param out_buf Buffer for created package
  * @param out_buf_len Pointer to package size
  */
-void modbus_client_tcp_request(struct modbus_tcp_client_handler *client, uint8_t *out_buf, uint16_t *out_buf_len);
+void modbus_client_tcp_request(struct modbus_tcp_client_handle *client, uint8_t *out_buf, uint16_t *out_buf_len);
 
 /**
  * @brief Modbus RTU slave (client) response function
- * @param client Modbus RTU client handler
+ * @param client Modbus RTU client handle
  * @param in_buf Modbus servers package
  * @param in_buf_len Package size
  * @return Parse status
  */
-int8_t modbus_client_rtu_response(struct modbus_rtu_client_handler *client, const uint8_t *in_buf, uint16_t in_buf_len);
+int8_t modbus_client_rtu_response(struct modbus_rtu_client_handle *client, const uint8_t *in_buf, int16_t in_buf_len);
 
 /**
  * @brief Modbus TCP slave (client) response function
- * @param client Modbus TCP client handler
+ * @param client Modbus TCP client handle
  * @param in_buf Modbus servers package
  * @param in_buf_len Package size
  * @return Parse status
  *
  */
-int8_t modbus_client_tcp_response(struct modbus_tcp_client_handler *client, const uint8_t *in_buf, uint16_t in_buf_len);
+int8_t modbus_client_tcp_response(struct modbus_tcp_client_handle *client, const uint8_t *in_buf, int16_t in_buf_len);
 
 #if defined (__cplusplus)
 }

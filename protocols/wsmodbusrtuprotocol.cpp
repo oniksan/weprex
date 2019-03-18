@@ -87,7 +87,7 @@ void WSModbusRTUProtocol::resetToDefault() {
 }
 
 void WSModbusRTUProtocol::paramCountChanged(quint32) {
-	struct utils_vect_handler* vect = m_hModbusClient->params;
+	struct utils_vect_handle* vect = m_hModbusClient->params;
 	// Clear internal (library) parameters list
 	utils_vector_clear(vect);
 	// Clear indexes vector

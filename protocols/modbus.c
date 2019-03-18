@@ -47,9 +47,9 @@ uint16_t modbus_size_check(uint32_t max_regs, const uint8_t *in_buf) {
 }
 inline uint16_t modbus_size_check(uint32_t max_regs, const uint8_t *in_buf);
 
-struct modbus_server_handler* modbus_server_create(void *regs, uint8_t *access, int32_t bytes_size, uint16_t max_regs_send, uint16_t adr) {
-	struct modbus_server_handler *serv;
-	if ((serv = (struct modbus_server_handler*) malloc(sizeof(struct modbus_server_handler))) == NULL) {
+struct modbus_server_handle* modbus_server_create(void *regs, uint8_t *access, int32_t bytes_size, uint16_t max_regs_send, uint16_t adr) {
+	struct modbus_server_handle *serv;
+	if ((serv = (struct modbus_server_handle*) malloc(sizeof(struct modbus_server_handle))) == NULL) {
 		return NULL;
 	}
 	serv->registers = regs;
@@ -60,11 +60,11 @@ struct modbus_server_handler* modbus_server_create(void *regs, uint8_t *access, 
 	return serv;
 }
 
-void modbus_server_destroy(struct modbus_server_handler* serv) {
+void modbus_server_destroy(struct modbus_server_handle* serv) {
 	free(serv);
 }
 
-uint16_t modbus_abstract_server(struct modbus_server_handler *serv, uint8_t *in, uint16_t in_len, uint8_t *out) {
+uint16_t modbus_abstract_server(struct modbus_server_handle *serv, uint8_t *in, uint16_t in_len, uint8_t *out) {
 	uint8_t fcode;
 	uint16_t len, cur_size;
 	int32_t adr;
@@ -158,7 +158,7 @@ uint16_t modbus_abstract_server(struct modbus_server_handler *serv, uint8_t *in,
 	return len;
 }
 
-int8_t modbus_tcp_server(struct modbus_server_handler *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len) {
+int8_t modbus_tcp_server(struct modbus_server_handle *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len) {
 	int8_t res;
 	uint16_t transaction_id, len;
 	
@@ -178,7 +178,7 @@ int8_t modbus_tcp_server(struct modbus_server_handler *serv, uint8_t *in_buf, ui
 	return DEF_PKG_INCORRECT;
 }
 
-int8_t modbus_rtu_server(struct modbus_server_handler *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len) {
+int8_t modbus_rtu_server(struct modbus_server_handle *serv, uint8_t *in_buf, uint16_t in_buf_len, uint8_t *out_buf, uint16_t *out_buf_len) {
 	int16_t res;
 	uint16_t len;
 	uint16_bytes val2byte;
@@ -328,9 +328,9 @@ void modbus_client_param_destroy(struct modbus_client_parameter* param) {
 	free(param);
 }
 
-struct modbus_rtu_client_handler* modbus_client_rtu_create() {
-	struct modbus_rtu_client_handler *client;
-	if ((client = (struct modbus_rtu_client_handler*) malloc(sizeof(struct modbus_rtu_client_handler))) == NULL) {
+struct modbus_rtu_client_handle* modbus_client_rtu_create() {
+	struct modbus_rtu_client_handle *client;
+	if ((client = (struct modbus_rtu_client_handle*) malloc(sizeof(struct modbus_rtu_client_handle))) == NULL) {
 		return NULL;
 	}
 	if ((client->params = utils_vector_create()) == NULL) {
@@ -343,12 +343,12 @@ struct modbus_rtu_client_handler* modbus_client_rtu_create() {
 	return client;
 }
 
-void modbus_client_rtu_destroy(struct modbus_rtu_client_handler *client) {
+void modbus_client_rtu_destroy(struct modbus_rtu_client_handle *client) {
 	utils_vect_destroy(client->params);
 	free(client);
 }
 
-void modbus_client_rtu_reset(struct modbus_rtu_client_handler *client) {
+void modbus_client_rtu_reset(struct modbus_rtu_client_handle *client) {
 	struct modbus_client_parameter *cur_param;
 	client->param_counter = 0;
 	client->counter = 0;
@@ -365,9 +365,9 @@ void modbus_client_rtu_reset(struct modbus_rtu_client_handler *client) {
 	}
 }
 
-struct modbus_tcp_client_handler* modbus_client_tcp_create() {
-	struct modbus_tcp_client_handler *client;
-	if ((client = (struct modbus_tcp_client_handler*) malloc(sizeof(struct modbus_tcp_client_handler))) == NULL) {
+struct modbus_tcp_client_handle* modbus_client_tcp_create() {
+	struct modbus_tcp_client_handle *client;
+	if ((client = (struct modbus_tcp_client_handle*) malloc(sizeof(struct modbus_tcp_client_handle))) == NULL) {
 		return NULL;
 	}
 	if ((client->params = utils_vector_create()) == NULL) {
@@ -381,12 +381,12 @@ struct modbus_tcp_client_handler* modbus_client_tcp_create() {
 	return client;
 }
 
-void modbus_client_tcp_destroy(struct modbus_tcp_client_handler *client) {
+void modbus_client_tcp_destroy(struct modbus_tcp_client_handle *client) {
 	utils_vect_destroy(client->params);
 	free(client);
 }
 
-void modbus_client_tcp_reset(struct modbus_tcp_client_handler *client) {
+void modbus_client_tcp_reset(struct modbus_tcp_client_handle *client) {
 	struct modbus_client_parameter *cur_param;
 	client->param_counter = 0;
 	client->counter = 0;
@@ -679,7 +679,7 @@ void modbus_client_tcp_mpab(uint16_t transaction_id, uint8_t *package, uint16_t 
 	package[MB_OFFSET_MPAB_UNIT_ID] = unit_id;
 }
 
-void modbus_client_rtu_request(struct modbus_rtu_client_handler *client, uint8_t *out_buf, uint16_t *out_buf_len) {
+void modbus_client_rtu_request(struct modbus_rtu_client_handle *client, uint8_t *out_buf, uint16_t *out_buf_len) {
 	struct modbus_client_parameter *cur_param;
 	/* Polling counter looping */
 	if (client->param_counter == utils_vect_size(client->params)) {
@@ -693,7 +693,7 @@ void modbus_client_rtu_request(struct modbus_rtu_client_handler *client, uint8_t
 	client->param_counter++;
 }
 
-void modbus_client_tcp_request(struct modbus_tcp_client_handler *client, uint8_t *out_buf, uint16_t *out_buf_len) {
+void modbus_client_tcp_request(struct modbus_tcp_client_handle *client, uint8_t *out_buf, uint16_t *out_buf_len) {
 	struct modbus_client_parameter *cur_param;
 	/* Polling counter looping */
 	if (client->param_counter == utils_vect_size(client->params)) {
@@ -708,23 +708,27 @@ void modbus_client_tcp_request(struct modbus_tcp_client_handler *client, uint8_t
 	client->transaction_id++;
 }
 
-int8_t modbus_client_rtu_response(struct modbus_rtu_client_handler *client, const uint8_t *in_buf, uint16_t in_buf_len) {
+int8_t modbus_client_rtu_response(struct modbus_rtu_client_handle *client, const uint8_t *in_buf, int16_t in_buf_len) {
 	struct modbus_client_parameter* cur_param;
 	uint16_t cur_counter;
 	int8_t res;
 	uint8_t response;
 	
+	cur_counter = client->param_counter - 1;
+	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (in_buf_len > 0) {
 		res = modbus_client_rtu_check(in_buf, in_buf_len);
 		if (res == DEF_PKG_INCOMPLETE) {
 			return res;
 		}
+	} else if (in_buf_len < 0) {
+		res = (int8_t) in_buf_len;
+		cur_param->err = MB_EC_RESPONSE_ERR;
+		return res;
 	} else {
 		res = DEF_PKG_INCOMPLETE;
 		return res;
 	}
-	cur_counter = client->param_counter - 1;
-	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (res == DEF_PKG_OK) {
 		response = modbus_client_response_package(cur_param, in_buf, in_buf_len, MB_RTU);
 	} else {
@@ -747,23 +751,27 @@ int8_t modbus_client_rtu_response(struct modbus_rtu_client_handler *client, cons
 	return res;
 }
 
-int8_t modbus_client_tcp_response(struct modbus_tcp_client_handler *client, const uint8_t *in_buf, uint16_t in_buf_len) {
+int8_t modbus_client_tcp_response(struct modbus_tcp_client_handle *client, const uint8_t *in_buf, int16_t in_buf_len) {
 	struct modbus_client_parameter* cur_param;
 	uint16_t cur_counter, transaction_id;
 	int8_t res;
 	uint8_t response;
 	
+	cur_counter = client->param_counter - 1;
+	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (in_buf_len > 0) {
 		res = modbus_tcp_server_mpab_analyze(in_buf, in_buf_len, &transaction_id);
 		if (res == DEF_PKG_INCOMPLETE) {
 			return res;
 		}
+	} else if (in_buf_len < 0) {
+		res = (int8_t) in_buf_len;
+		cur_param->err = MB_EC_RESPONSE_ERR;
+		return res;
 	} else {
 		res = DEF_PKG_INCOMPLETE;
 		return res;
 	}
-	cur_counter = client->param_counter - 1;
-	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (transaction_id == client->transaction_id - 1) {
 		if (res == DEF_PKG_OK) {
 			response = modbus_client_response_package(cur_param, in_buf, in_buf_len, MB_TCP);
@@ -792,26 +800,26 @@ int8_t modbus_client_tcp_response(struct modbus_tcp_client_handler *client, cons
 	return res;
 }
 
-uint32_t modbus_client_rtu_param_add(struct modbus_rtu_client_handler *client, struct modbus_client_parameter *param) {
+uint32_t modbus_client_rtu_param_add(struct modbus_rtu_client_handle *client, struct modbus_client_parameter *param) {
 	return utils_vect_append(client->params, param);
 }
 
-void modbus_client_rtu_param_del(struct modbus_rtu_client_handler *client, uint32_t index) {
+void modbus_client_rtu_param_del(struct modbus_rtu_client_handle *client, uint32_t index) {
 	utils_vect_remove(client->params, index);
 }
 
-struct modbus_client_parameter* modbus_client_rtu_param_get(struct modbus_rtu_client_handler *client, uint32_t index) {
+struct modbus_client_parameter* modbus_client_rtu_param_get(struct modbus_rtu_client_handle *client, uint32_t index) {
 	return utils_vect_get(client->params, index);
 }
 
-uint32_t modbus_client_tcp_param_add(struct modbus_tcp_client_handler *client, struct modbus_client_parameter *param) {
+uint32_t modbus_client_tcp_param_add(struct modbus_tcp_client_handle *client, struct modbus_client_parameter *param) {
 	return utils_vect_append(client->params, param);
 }
 
-void modbus_client_tcp_param_del(struct modbus_tcp_client_handler *client, uint32_t index) {
+void modbus_client_tcp_param_del(struct modbus_tcp_client_handle *client, uint32_t index) {
 	utils_vect_remove(client->params, index);
 }
 
-struct modbus_client_parameter* modbus_client_tcp_param_get(struct modbus_tcp_client_handler *client, uint32_t index) {
+struct modbus_client_parameter* modbus_client_tcp_param_get(struct modbus_tcp_client_handle *client, uint32_t index) {
 	return utils_vect_get(client->params, index);
 }

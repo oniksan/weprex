@@ -46,7 +46,7 @@ public:
 	bool readyToPolling() override;
 
 private:
-	std::unique_ptr<struct modbus_tcp_client_handler, void(*)(struct modbus_tcp_client_handler*)> m_hModbusClient;
+	std::unique_ptr<struct modbus_tcp_client_handle, void(*)(struct modbus_tcp_client_handle*)> m_hModbusClient;
 	WSParametersHash<WSModbusParameter> m_params;
 	QVector<quint32> m_paramIdToLibIndex;
 	void paramCountChanged(quint32 id);

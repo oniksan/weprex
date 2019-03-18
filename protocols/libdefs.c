@@ -22,9 +22,9 @@
 
 #include "libdefs.h"
 
-struct utils_vect_handler* utils_vector_create_sized(uint32_t init_size) {
-	struct utils_vect_handler *v;
-	if ((v = (struct utils_vect_handler*) malloc(sizeof(struct utils_vect_handler))) == NULL) {
+struct utils_vect_handle* utils_vector_create_sized(uint32_t init_size) {
+	struct utils_vect_handle *v;
+	if ((v = (struct utils_vect_handle*) malloc(sizeof(struct utils_vect_handle))) == NULL) {
 		return NULL;
 	}
 	if ((v->values = malloc(sizeof(void*) * init_size)) == NULL) {
@@ -36,23 +36,23 @@ struct utils_vect_handler* utils_vector_create_sized(uint32_t init_size) {
 	return v;
 }
 
-struct utils_vect_handler* utils_vector_create() {
+struct utils_vect_handle* utils_vector_create() {
 	return utils_vector_create_sized(UTILS_VECT_INIT_SIZE);
 }
 
-void utils_vect_destroy(struct utils_vect_handler *vector) {
+void utils_vect_destroy(struct utils_vect_handle *vector) {
 	free(vector->values);
 	free(vector);
 }
 
-void utils_vect_destroy_all(struct utils_vect_handler *vector) {
+void utils_vect_destroy_all(struct utils_vect_handle *vector) {
 	for (uint32_t i = 0; i < vector->pointer - 1; i++) {
 		free(vector->values[i]);
 	}
 	utils_vect_destroy(vector);
 }
 
-uint32_t utils_vect_realloc(struct utils_vect_handler *vector, uint32_t size) {
+uint32_t utils_vect_realloc(struct utils_vect_handle *vector, uint32_t size) {
 	void **new_values;
 	if (size > vector->size) {
 		if ((new_values = malloc(sizeof(void*) * size)) == NULL) {
@@ -67,7 +67,7 @@ uint32_t utils_vect_realloc(struct utils_vect_handler *vector, uint32_t size) {
 	return 0;
 }
 
-uint32_t utils_vect_append(struct utils_vect_handler *vector, void *val) {
+uint32_t utils_vect_append(struct utils_vect_handle *vector, void *val) {
 	if (vector->pointer == (vector->size - 1)) {
 		if (utils_vect_realloc(vector, UTILS_VECT_REALLOC_APPEND_SIZE) == 0) {
 			return 0;
@@ -78,18 +78,18 @@ uint32_t utils_vect_append(struct utils_vect_handler *vector, void *val) {
 	return vector->pointer;
 }
 
-uint32_t utils_vect_size(struct utils_vect_handler *vector) {
+uint32_t utils_vect_size(struct utils_vect_handle *vector) {
 	return vector->pointer;
 }
 
-void* utils_vect_get(struct utils_vect_handler *vector, uint32_t index) {
+void* utils_vect_get(struct utils_vect_handle *vector, uint32_t index) {
 	if (index < vector->pointer) {
 		return vector->values[index];
 	}
 	return NULL;
 }
 
-uint32_t utils_vect_remove(struct utils_vect_handler *vector, uint32_t index) {
+uint32_t utils_vect_remove(struct utils_vect_handle *vector, uint32_t index) {
 	if (index < vector->pointer) {
 		for (uint32_t i = index; i < vector->pointer - 1; i++) {
 			vector->values[i] = vector->values[i + 1];
@@ -100,7 +100,7 @@ uint32_t utils_vect_remove(struct utils_vect_handler *vector, uint32_t index) {
 	return 0;
 }
 
-void utils_vector_clear(struct utils_vect_handler *vector) {
+void utils_vector_clear(struct utils_vect_handle *vector) {
 	vector->pointer = 0;
 }
 
