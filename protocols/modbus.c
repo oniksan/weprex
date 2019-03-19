@@ -714,8 +714,6 @@ int8_t modbus_client_rtu_response(struct modbus_rtu_client_handle *client, const
 	int8_t res;
 	uint8_t response;
 	
-	cur_counter = client->param_counter - 1;
-	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (in_buf_len > 0) {
 		res = modbus_client_rtu_check(in_buf, in_buf_len);
 		if (res == DEF_PKG_INCOMPLETE) {
@@ -723,12 +721,12 @@ int8_t modbus_client_rtu_response(struct modbus_rtu_client_handle *client, const
 		}
 	} else if (in_buf_len < 0) {
 		res = (int8_t) in_buf_len;
-		cur_param->err = MB_EC_RESPONSE_ERR;
-		return res;
 	} else {
 		res = DEF_PKG_INCOMPLETE;
 		return res;
 	}
+	cur_counter = client->param_counter - 1;
+	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (res == DEF_PKG_OK) {
 		response = modbus_client_response_package(cur_param, in_buf, in_buf_len, MB_RTU);
 	} else {
@@ -757,8 +755,6 @@ int8_t modbus_client_tcp_response(struct modbus_tcp_client_handle *client, const
 	int8_t res;
 	uint8_t response;
 	
-	cur_counter = client->param_counter - 1;
-	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (in_buf_len > 0) {
 		res = modbus_tcp_server_mpab_analyze(in_buf, in_buf_len, &transaction_id);
 		if (res == DEF_PKG_INCOMPLETE) {
@@ -766,12 +762,12 @@ int8_t modbus_client_tcp_response(struct modbus_tcp_client_handle *client, const
 		}
 	} else if (in_buf_len < 0) {
 		res = (int8_t) in_buf_len;
-		cur_param->err = MB_EC_RESPONSE_ERR;
-		return res;
 	} else {
 		res = DEF_PKG_INCOMPLETE;
 		return res;
 	}
+	cur_counter = client->param_counter - 1;
+	cur_param = (struct modbus_client_parameter*)(utils_vect_get(client->params, cur_counter));
 	if (transaction_id == client->transaction_id - 1) {
 		if (res == DEF_PKG_OK) {
 			response = modbus_client_response_package(cur_param, in_buf, in_buf_len, MB_TCP);
