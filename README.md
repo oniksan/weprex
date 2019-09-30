@@ -3,17 +3,18 @@
 ## Dowload binary distributive
 ### Windows 7, 8, 10
 #### 32-bit installer:
+##### Compiled by MSVC2017
 `Required Microsoft Visual C++ Redistributable for Visual Studio 2017 (Included in installer package)`
-https://github.com/oniksan/weprex/releases/download/0.2.0/weprex-0.2.0-32bit_MSVC2017_installer.exe
+https://github.com/oniksan/weprex/releases/download/0.2.1/weprex-0.2.1-32bit_MSVC2017_installer.exe
 #### 64-bit installers:
 ##### Compiled by MinGW 7.3
-https://github.com/oniksan/weprex/releases/download/0.2.0/weprex_0.2.0_64bit_MinGW7.3_installer.exe
-##### Compiled by MSVC 2017
-`Required Microsoft Visual C++ Redistributable for Visual Studio 2017 (Included in installer package)`
-https://github.com/oniksan/weprex/releases/download/0.2.0/weprex-0.2.0-64bit_MSVC2017_installer.exe
+https://github.com/oniksan/weprex/releases/download/0.2.1/weprex_0.2.1_64bit_MinGW7.3_installer.exe
+#### 32-bit binary (zip archive)
+##### Compiled by MSVC2017
+https://github.com/oniksan/weprex/releases/download/0.2.1/weprex-MSVC2017_32bit.zip
 #### 64-bit binary (zip archive)
 ##### Compiled by MinGW 7.3
-https://github.com/oniksan/weprex/releases/download/0.2.0/weprex-MinGW_64bit.zip
+https://github.com/oniksan/weprex/releases/download/0.2.1/weprex-MinGW_64bit.zip
 ### Other platforms
 #### Compile the executable file yourself:
 - Dowload Qt 5.12 or later
