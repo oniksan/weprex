@@ -34,6 +34,7 @@ public:
 	static const quint32 DEVICE_DISCONNECTION_WAIT_TIME;
 	static const bool DEVICE_TCP_AUTO_RECONNECT;
 	static const quint32 DEVICE_THREAD_SLEEP_PAUSE;
+	static const quint32 DEVICE_ERROR_SLEEP_PAUSE;
 	static const QString DEFAULT_STORE_SETTINGS_FILE;
 	static const QString MANUAL_FILE_PATH;
 

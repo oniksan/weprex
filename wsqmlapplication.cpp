@@ -749,7 +749,7 @@ QString WSQMLApplication::fullName() {
 }
 
 QString WSQMLApplication::version() {
-	return "0.2.0";
+	return "0.2.1";
 }
 
 QString WSQMLApplication::license() {
@@ -761,7 +761,7 @@ QString WSQMLApplication::build() {
 }
 
 QString WSQMLApplication::copyrights() {
-	return "© 2018 Oleg Malyavkin";
+	return "© 2018 - 2019 Oleg Malyavkin";
 }
 
 QString WSQMLApplication::additionalInfo() {

@@ -7,6 +7,7 @@ WSPollingRRInterface::WSPollingRRInterface(WSAbstractRRProtocol *protocol, QThre
 	m_receiveTimeout(1000),
 	m_pollingPause(50),
 	m_skipPause(Conf::DEVICE_THREAD_SLEEP_PAUSE),
+	m_errorPause(Conf::DEVICE_ERROR_SLEEP_PAUSE),
 	m_releaseFlag(false)
 {
 	connectSlotSignals();
@@ -69,6 +70,18 @@ void WSPollingRRInterface::setSkipPause(quint32 skipPause) {
 	QMutexLocker ml(&m_lock);
 	if (!m_started) {
 		m_skipPause = skipPause;
+	}
+}
+
+quint32 WSPollingRRInterface::errorPause() const {
+	QMutexLocker ml(&m_lock);
+	return m_errorPause;
+}
+
+void WSPollingRRInterface::setErrorPause(quint32 errorPause) {
+	QMutexLocker ml(&m_lock);
+	if (!m_started) {
+		m_errorPause = errorPause;
 	}
 }
 

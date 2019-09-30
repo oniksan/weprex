@@ -49,6 +49,9 @@ public:
 	virtual quint32 skipPause() const;
 	virtual void setSkipPause(quint32 skipPause);
 
+	virtual quint32 errorPause() const;
+	virtual void setErrorPause(quint32 errorPause);
+
 signals:
 	void transmitTimeoutOccurred(quint32 timeout);
 	void receiveTimeoutOccurred(quint32 timeout);
@@ -65,6 +68,7 @@ protected:
 	quint32 m_receiveTimeout;
 	quint32 m_pollingPause;
 	quint32 m_skipPause;
+	quint32 m_errorPause;
 	bool m_releaseFlag;
 
 	virtual void connectSlotSignals();
