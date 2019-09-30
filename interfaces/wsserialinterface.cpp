@@ -199,7 +199,7 @@ void WSSerialInterface::workerLoop() {
 						continue;
 					} else {
 						emit errorDataReceived(m_recvBuffer);
-						QThread::msleep((m_errorPause > m_pollingPause) ? m_errorPause : m_pollingPause);
+						QThread::msleep((m_pollingPause > m_errorPause) ? m_pollingPause : m_errorPause);
 						m_serial.clear();
 						m_recvBuffer.clear();
 						m_state = WSSerialState::TRANSMIT;
