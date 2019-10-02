@@ -762,6 +762,7 @@ int8_t modbus_client_tcp_response(struct modbus_tcp_client_handle *client, const
 		}
 	} else if (in_buf_len < 0) {
 		res = (int8_t) in_buf_len;
+		return DEF_PKG_INCORRECT;
 	} else {
 		res = DEF_PKG_INCOMPLETE;
 		return res;
