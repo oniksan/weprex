@@ -556,7 +556,7 @@ int8_t modbus_client_rtu_check(const uint8_t *in_buf, uint16_t in_buf_len) {
 				return DEF_PKG_INCORRECT;
 			}
 		} else {
-			return DEF_PKG_OK;
+			return DEF_PKG_INCORRECT;
 		}
 	}
 	return DEF_PKG_INCOMPLETE;
