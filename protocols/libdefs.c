@@ -58,7 +58,7 @@ uint32_t utils_vect_realloc(struct utils_vect_handle *vector, uint32_t size) {
 		if ((new_values = malloc(sizeof(void*) * size)) == NULL) {
 			return 0;
 		}
-		memcpy(new_values, vector->values, vector->size);
+		memcpy(new_values, vector->values, vector->size * sizeof(void*));
 		free(vector->values);
 		vector->values = new_values;
 		vector->size = size;
