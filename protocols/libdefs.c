@@ -69,7 +69,7 @@ uint32_t utils_vect_realloc(struct utils_vect_handle *vector, uint32_t size) {
 
 uint32_t utils_vect_append(struct utils_vect_handle *vector, void *val) {
 	if (vector->pointer == (vector->size - 1)) {
-		if (utils_vect_realloc(vector, UTILS_VECT_REALLOC_APPEND_SIZE) == 0) {
+		if (utils_vect_realloc(vector, UTILS_VECT_REALLOC_APPEND_SIZE + vector->size) == 0) {
 			return 0;
 		}
 	}
