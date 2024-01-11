@@ -16,6 +16,11 @@ https://github.com/oniksan/weprex/releases/download/0.2.1/weprex-MSVC2017_32bit.
 ##### Compiled by MinGW 7.3
 https://github.com/oniksan/weprex/releases/download/0.2.1/weprex-MinGW_64bit.zip
 ### Other platforms
+#### Compile for Linux(Debian like) by GCC in Docker
+- `cd linux_build`
+- run `./weprex_build.sh`
+
+Additional information in `readme.md` in the `linux_build` folder.
 #### Compile the executable file yourself:
 - Dowload Qt 5.12 or later
 - Dowload Qt Creator 4.8 and Open Project "weprex.pro" (optionaly)
